@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<script>
+window.onload = function() {
+   query.onclick = function(event) {
+       event.preventDefault();
+       fetch(`sql.php?uid=${uid.value}`)
+       .then(function(response) {
+           return response.json();
+       })
+       .then(function(data) {
+           let view = '';
+           data.forEach(function(item) {
+               view += `
+                   <div>
+                       <label>姓名：</label><label>${item["cname"]}</label>
+                   </div>
+                   <div>
+                       <label>住址：</label><label>${item["address"]}</label>
+                   </div>
+                   <div>
+                       <label>電話：</label><label>${item["tel"]}</label>
+                   </div>
+                   <hr>
+               `
+           })
+           userInfo.innerHTML = view
+       })
+
+       headPhoto.innerHTML = `<img src="getImg.php?uid=${uid.value}" width="200">`;
+   }
+}
+</script>
+<body>
+   <form>
+       <input placeholder="Input UserId" name="uid" id="uid"><p></p>
+       <button id="query">查詢</button>
+   </form>
+   <p></p>
+   <div id="container">
+    <div id="headPhoto"></div>
+    <div id="userInfo"></div>
+   </div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+</head>
+<script>
+    //原生JS
+function ajax(myform){
+    fetch('hello.php', {
+                method: 'post',
+                // body: new FormData(form)
+                body:myform
+            })
+                .then(function (response) {
+                    // return response.text()
+                    return response.json()
+                })
+                .then(function (data) {
+                    // alert(new FormData(form))
+                    // console.log(new FormData(form));
+                    // result.innerHTML = data
+                    result.innerHTML=`${data.a} ${data.op}${data.b} = ${data.answer}`
+                    // a.value=''
+                    // b.value=''
+                    // a.focus();
+                })
+
+}
+    window.onload = function () {
+        document.getElementsByName('op').forEach(function(item){
+        item.onclick = function (event) {
+            event.preventDefault()
+            let myform = new FormData(form)
+            myform.append('op',this.id)
+            ajax(myform)
+
+        }
+    })
+    }
+
+
+
+
+// $(function () {
+//         $("button").click(function (event) {
+//             event.preventDefault();
+//             // console.log($("form").serialize());
+//             $("#op").val($(this).attr('id'))
+//             // alert($("form").serialize())
+//             $.post(
+//                 "hello.php",
+//                 $("form").serialize(),
+//                 function (result) {
+//                     // console.log(result);
+//                     let data = JSON.parse(result)
+//                     $('#result').html(`${data.a} ${data.op} ${data.b} = ${data.answer}` )
+//                     // let a =$("#a").val();
+//                     // let b =$("#b").val();
+//                     // $("#result").html(`${a}+${b}=${result}`)
+//                     // // $("#a").val("")
+//                     // // $("#b").val("")
+//                     // $(":input").val("")
+//                     // $("#b").trigger("focus")
+//                 }
+//             )
+//         })
+//     })
+
+</script>
+
+<body>
+    <!-- <form action="hello.php" method="post" target="answer"> -->
+    <form id="form">
+        <input type="hidden" name="op" id="op">
+        <!-- <form action="hello.php" method="get"> -->
+        Number A: <input type="number" name="a" id="a">
+        <p></p>
+        Number B: <input type="number" name="b" id="b">
+        <p></p>
+        <!-- <input type="submit" value="Add"> -->
+        <button id="bn">Add</button>
+        <button name="op" id="add">+</button>
+        <button name="op" id="sub">-</button>
+        <button name="op" id="mul">x</button>
+        <button name="op" id="div">/</button>
+        <p></p>
+        <!-- <iframe name="answer" width="200" height="100" style="border:0"></iframe> -->
+        <div id="result">0</div>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <script>
+        $(function () {
+            let photo = ''
+            $("#bn").click(function (event) {
+                event.preventDefault();
+                // alert($("form").serialize())
+                // console.log($("form").serialize());
+                $.post(
+                    "userinfo_sql.php",
+                    $("form").serialize(),
+                    function (result) {
+                        result = result.trim()
+                        let userData = result.split('\n')
+                        let view = '';
+                        userData.forEach(function (item) {
+                            let fields = item.split(',')
+                            // alert(fields+"no"+i)
+
+                            view += `
+                           
+                   <div>
+                       <label>姓名：</label><label>${fields[0]}</label>
+                   </div>
+                   <div>
+                       <label>住址：</label><label>${fields[1]}</label>
+                   </div>
+                   <div>
+                       <label>電話：</label><label>${fields[2]}</label>
+                   </div>
+                   <hr>
+               `
+                        });
+                       
+                       
+                        $('#userinfo').html(view)
+
+                        // result.innerHTML = view
+
+                    }
+                )
+                // photo = `<img src="getimage.php?uid=${uid_input.value}" width"200"`
+                // console.log(photo);
+                $('#headphoto').html(`<img src="../getimage.php?uid=${uid_input.value}" width"200"`)
+                // $('#headphoto').attr('src',`../getimage.php?uid=${uid_input.value}` )
+                // $('#headphoto').attr('width','200' )
+    
+            })
+        })
+
+    </script>
+    <form action="userinfo_sql.php" method="post">
+        請輸入UID: <input type="text" name="uid_input" id="uid_input">
+        <input type="submit" value="查詢" id="bn">
+    </form>
+
+
+    <div id="result">
+        <div id="headphoto"></div>
+        <div id="userinfo"></div>
+
+    </div>
+
+
+</body>
+
+</html>

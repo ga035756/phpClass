@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    $(function () {
+        $("#uid").blur(function () {
+            console.log(data);
+                    console.log($("form").serialize());
+            $.post("reg_work.php"),
+                $("form").serialize(),
+                function (data) {
+                    console.log(data);
+                    console.log($("form").serialize());
+                }
+        })
+
+    })
+
+</script>
+
+<body>
+    <form action="reg_work.php" method="get">
+        <!-- <form> -->
+        uid: <input type="text" id="uid" name="uid"><br>
+        pwd: <input type="text" id="pwd" name="pwd"><br>
+        confirm: <input type="text" id="confirm" name="confirm"><br>
+        <input type="submit" value="okay" id="okay"><br>
+    </form>
+</body>
+
+</html>
