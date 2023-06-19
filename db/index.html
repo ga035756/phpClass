@@ -6,18 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
 <script>
     $(function () {
         $("#uid").blur(function () {
-            console.log(data);
-                    console.log($("form").serialize());
-            $.post("reg_work.php"),
+            event.preventDefault();
+            $.post(
+                "reg_work.php",
                 $("form").serialize(),
-                function (data) {
-                    console.log(data);
-                    console.log($("form").serialize());
-                }
+                function (result) {
+                    if (result !== '') {
+                        $("#check_uid").html('<span id="check_uid" style="color:green">V</span>')
+                    }else{
+                        $("#check_uid").html('<span id="check_uid" style="color:red">X</span>');
+                    }
+                })
+
         })
 
     })
@@ -27,9 +33,12 @@
 <body>
     <form action="reg_work.php" method="get">
         <!-- <form> -->
-        uid: <input type="text" id="uid" name="uid"><br>
-        pwd: <input type="text" id="pwd" name="pwd"><br>
-        confirm: <input type="text" id="confirm" name="confirm"><br>
+        uid:  <br>      
+        <input type="text" id="uid" name="uid"><span id="check_uid"></span><br>
+        pwd:    <br>    
+        <input type="text" id="pwd" name="pwd"><br>
+        confirm: <br>   
+        <input type="text" id="confirm" name="confirm"><br>
         <input type="submit" value="okay" id="okay"><br>
     </form>
 </body>

@@ -23,13 +23,14 @@ function f($ans)
     echo $ans;
 }
 $answer = add(51, 3);
-echo $answer.'<br>============================<br>';
+echo $answer . '<br>============================<br>';
 
 
-function add2($a,$b,$f){
-    $f($a+$b);
+function add2($a, $b, $f)
+{
+    $f($a + $b);
 }
 
-add2(5,6,function($ans){
-    echo '<h1>'.$ans.'</h1>';
+add2(5, 6, function ($ans) {
+    echo '<h1>' . $ans . '</h1>';
 });

@@ -3,13 +3,14 @@
 require('db.php');
 $newpwd='';
 $cname='';
+$token='';
 if (isset($_POST['newpwd']) && isset($_POST['cname'])) {
     $newpwd = $_POST['newpwd'];
     $cname = $_POST['cname'];
 }
 
 if($newpwd !== "" && $cname !== ""){
-    $token = $_SESSION['token'];
+    $token = $_COOKIE['token'];
     $src = $_FILES['file']['tmp_name'];
     $content = file_get_contents($src);
     $sql = "update userInfo set cname= ?,pwd= ?,image= ? where token = ?";
@@ -44,7 +45,7 @@ if($newpwd !== "" && $cname !== ""){
     </form>
     <script>
         submit.onclick = function() {
-            if( !cname.value || !pwd.value) {
+            if( !cname.value && !pwd.value) {
                 alert("請完整輸入欲修改的資訊!");
             }
         }
