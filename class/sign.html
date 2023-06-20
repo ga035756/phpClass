@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="form" action="sign.php" method="post">
+        <label for="uid">User ID : </label>
+        <input type="text" name="uid" id="uid"><span id="verify"></span><br><br>
+        <label for="pwd">Password : </label>
+        <input type="text" name="pwd" id="pwd"><br><br>
+        <label for="confirm">Confirm : </label>
+        <input type="text" name="confirm" id="confirm"><br><br>
+    </form>
+    <button>註冊</button>
+
+    <script>
+        window.onload = function () {
+            uid.addEventListener('blur', check);
+        }
+        function check(form) {
+            fetch(`sign.php?uid=${uid.value}`, {
+                method: "post",
+                body: form
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(data => {
+                    let str = "";
+                    let result = data.some( item => item.uid == uid.value);
+                    if (!uid.value) {
+                        str = `<span style="color:red;font-weight:bold"> 請輸入 uid</span>`;
+                    }else if (result) {
+                        str = `<span style="color:red;font-weight:bold"> X</span>`;
+                    }else {
+                        str = `<span style="color:green;font-weight:bold"> V</span>`;
+                    }
+                    verify.innerHTML = str;
+                })
+        }
+    </script>
+</body>
+
+</html>
