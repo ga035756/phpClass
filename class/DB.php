@@ -101,13 +101,6 @@ class DB
         return  DB::query($sql, $params);
 
     }
-    // static function select($sql, $complete)
-    // {
-    //     $result = DB::$mysqli->query($sql);
-    //     $rows = $result->fetch_all(MYSQLI_ASSOC);
-    //     $complete($rows);
-    // }
-
     
 
 }

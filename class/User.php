@@ -46,6 +46,7 @@
 //     }
 // }
 require_once('DB.php');
+// require_once('img.php');
 
 
 class User
@@ -77,6 +78,10 @@ class User
                 if ($this->image == null) {
                     $this->image = file_get_contents('https://img.freepik.com/free-vector/head-profile-with-gears_98292-387.jpg');
                 }
+
+                // $image = new Image($this->image);
+                // $image->resize(200,200,'aspectfill');
+                // $this->src = $image->getImageSrc('thumb')[0];
                 $mime_type = (new finfo(FILEINFO_MIME_TYPE))->buffer($this->image);
                 $image_base64 = base64_encode($this->image);
                 $this->src = "data:{$mime_type};base64,{$image_base64}";
@@ -114,6 +119,18 @@ class User
         header('location: login.php');
     }
 
+    static function updateProfile($token)
+    {
+        $src = $_FILES['file']['tmp_name'];
+        $content = file_get_contents($src);
+        $sql = "update userInfo set cname= ?,pwd= ?,image= ? where token = ?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param('ssbs',$cname,$pwd,$content,$token);
+        $stmt->send_long_data(2,$content);
+        $stmt->execute();
+    
+        unlink($src);
+    }
 
     function getToken()
     {

@@ -1,11 +1,12 @@
 <?php session_start(); ?>
-<?php 
+<?php
 if (isset($_COOKIE['token'])) {
-    header("location:".$_COOKIE['welcome']);
+    header("location:" . $_COOKIE['welcome']);
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,8 @@ if (isset($_COOKIE['token'])) {
         <label for="pwd">密碼 : </label>
         <input type="text" name="pwd" id="pwd"><br><br>
         <input type="submit" value="登入">
-        
+
     </form>
 </body>
+
 </html>

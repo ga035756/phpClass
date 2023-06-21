@@ -1,6 +1,7 @@
 <?php session_start(); ?>
 <?php
 require('DB.php');
+require('User.php');
 $newpwd='';
 $cname='';
 $token='';
@@ -10,16 +11,18 @@ if (isset($_POST['newpwd']) && isset($_POST['cname'])) {
 }
 
 if($newpwd !== "" && $cname !== ""){
+    // die($_COOKIE['token']);
     $token = $_COOKIE['token'];
-    $src = $_FILES['file']['tmp_name'];
-    $content = file_get_contents($src);
-    $sql = "update userInfo set cname= ?,pwd= ?,image= ? where token = ?";
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param('ssbs',$cname,$pwd,$content,$token);
-    $stmt->send_long_data(2,$content);
-    $stmt->execute();
+    User::updateProfile($token);
+    // $src = $_FILES['file']['tmp_name'];
+    // $content = file_get_contents($src);
+    // $sql = "update userInfo set cname= ?,pwd= ?,image= ? where token = ?";
+    // $stmt = $mysqli->prepare($sql);
+    // $stmt->bind_param('ssbs',$cname,$pwd,$content,$token);
+    // $stmt->send_long_data(2,$content);
+    // $stmt->execute();
 
-    unlink($src);
+    // unlink($src);
 }
 
 ?>
