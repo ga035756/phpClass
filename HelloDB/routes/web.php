@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /*
@@ -46,6 +47,14 @@ Route::get('/test', function () {
         });
     } catch (Throwable $e) {
         report($e);
-        abort(503);
+        // abort(503);
     }
+    return response()
+        ->header('Access-Control-Allow-Origin', '*');
+});
+
+Route::get('/test1', function () {
+
+    return Response::view('test1')
+        ->header('Access-Control-Allow-Origin', '*');
 });
