@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cookie;
 use App\Http\Controllers\FileController;
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +46,13 @@ Route::get('/list', function () {
     foreach ($docs as $doc) {
         echo $doc->originalname . '<br>';
     }
+});
+
+Route::get('/setcookie', function () {
+    Cookie::queue('name', 'David', 2);
+});
+Route::get('/getcookie', function () {
+    echo Cookie::get('name');
 });
 
 require __DIR__ . '/auth.php';

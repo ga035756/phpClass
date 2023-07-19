@@ -54,7 +54,8 @@ Route::get('/test', function () {
 });
 
 Route::get('/test1', function () {
-
-    return Response::view('test1')
-        ->header('Access-Control-Allow-Origin', '*');
+    return response('hello web', 200)
+    ->header('Access-Control-Allow-Origin', '*');
+    // return Response::view('test1')
+    //     ->header('Access-Control-Allow-Origin', '*');
 });
